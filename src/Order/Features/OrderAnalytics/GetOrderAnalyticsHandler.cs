@@ -9,13 +9,19 @@ public sealed class GetOrderAnalyticsHandler(AppDbContext context)
 {
     public async Task<GetOrderAnalyticsResponse> Handle(GetOrderAnalyticsRequest request, CancellationToken cancellationToken)
     {
-        var totalOrders = await context.Orders.CountAsync(cancellationToken);
+        var totalOrders = await context.Orders
+            .AsNoTracking()
+            .CountAsync(cancellationToken);
+            
         var fulfilledOrders = await context.Orders
+            .AsNoTracking()
             .Where(o => o.Status == Domain.Enums.OrderStatus.Fulfilled)
             .ToListAsync(cancellationToken);
 
         decimal avgOrderValue = totalOrders > 0
-            ? await context.Orders.AverageAsync(o => o.TotalAmount, cancellationToken)
+            ? await context.Orders
+                .AsNoTracking()
+                .AverageAsync(o => o.TotalAmount, cancellationToken)
             : 0;
 
         double avgFulfillmentHours = fulfilledOrders.Count > 0

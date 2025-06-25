@@ -15,7 +15,9 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
 
     public async Task<decimal> CalculateDiscountAsync(Guid customerId, decimal total, CancellationToken cancellationToken)
     {
-        var customer = await context.Customers.FirstOrDefaultAsync(c => c.Id == customerId, cancellationToken);
+        var customer = await context.Customers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == customerId, cancellationToken);
 
         if (customer is null)
             return 0;
