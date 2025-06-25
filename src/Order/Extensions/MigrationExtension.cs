@@ -12,7 +12,11 @@ public static class MigrationExtension
         using AppDbContext dbContext =
             scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-        dbContext.Database.Migrate();
+        // Only apply migrations if the DB provider is relational (e.g., PostgreSQL)
+        if (dbContext.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            dbContext.Database.Migrate();
+        }
 
         // Seed data
         SeedData.Initialize(dbContext);
