@@ -12,4 +12,5 @@ public class OrderEntity
     public OrderStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? FulfilledAt { get; set; }
+    public DateTime? CancelledAt { get; set; }
 }

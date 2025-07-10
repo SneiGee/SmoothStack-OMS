@@ -17,7 +17,7 @@ public class UpdateOrderStatusHandlerTests
     {
         // Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase("UpdateStatusDb")
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
 
         var context = new AppDbContext(options);
