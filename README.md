@@ -11,7 +11,7 @@ A clean, testable .NET 8 Web API simulating an order management system using mod
 - Calculates discounts dynamically based on customer segment (New, Regular, VIP).
 - Saves and returns final order details (total, discount, status).
 
-### ✅ Discount System
+### 💸 Discount System
 - Discounts applied as:
   - `New`: 5%
   - `Regular`: 10%
@@ -24,7 +24,14 @@ A clean, testable .NET 8 Web API simulating an order management system using mod
 - Prevents invalid transitions.
 
 
-### ✅ Order Analytics Endpoint
+### ❌ Order Cancellation
+- Allows cancelling orders that are still Pending or Processing.
+- Cancelling updates the status to Cancelled and stores the cancellation timestamp.
+  - `Pending` or `Processing` → `Cancelled`
+- Attempts to cancel already Fulfilled or Cancelled orders are rejected with validation error.
+
+
+### 📊 Order Analytics Endpoint
 - Exposes statistics via an endpoint:
   - Total orders
   - Fulfilled orders
@@ -70,13 +77,41 @@ tests/
 
 Both **unit** and **integration** tests are included and automated.
 
+The solution includes both unit and integration tests to ensure correctness and maintainability.
+
+### ✅ Unit Tests
+
+Unit tests are written using xUnit, FluentAssertions, and Moq (where needed).  
+They cover business logic in handlers, including:
+
+- **CreateOrderHandlerTests**
+- **UpdateOrderStatusHandlerTests**
+- **GetOrderAnalyticsHandlerTests**
+- **CancelOrderHandlerTests** ✅
+
+Example tested logic:
+
+- Order creation with discounts
+- State transitions for orders
+- Analytics metrics (averages, counts)
+- Cancelling orders and enforcing rules
+
 ```bash
 dotnet test
 ```` 
+
+# Test Output Example
+[xUnit.net 00:00:02.00]   Discovering: Order.Tests
+[xUnit.net 00:00:02.30]   Starting:    Order.Tests
+[xUnit.net 00:00:03.45]   Finished:    Order.Tests
+
+Passed!  - Failed:     0, Passed:     4 ✅, Skipped:     0, Total:     4, Duration: 3 s - Order.Tests.dll (net8.0)
+
 ✔️ Uses InMemory DB during tests
 ✔️ Tests all core features and transitions
 
 ---
+
 ## ⚡ Performance Optimizations
 
 - ✅ AsNoTracking() used in read-only queries
