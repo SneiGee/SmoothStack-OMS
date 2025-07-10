@@ -105,7 +105,7 @@ dotnet test
 [xUnit.net 00:00:02.30]   Starting:    Order.Tests
 [xUnit.net 00:00:03.45]   Finished:    Order.Tests
 
-Passed!  - Failed:     0, Passed:     6 ✅, Skipped:     0, Total:     4, Duration: 3 s - Order.Tests.dll (net8.0)
+Passed!  - Failed:     0, Passed:     6 ✅, Skipped:     0, Total:     6, Duration: 3 s - Order.Tests.dll (net8.0)
 
 ✔️ Uses InMemory DB during tests
 ✔️ Tests all core features and transitions
