@@ -174,4 +174,15 @@ dotnet run --project src/Order
 - Tests are isolated, fast, and use in-memory EF Core
 
 
+### 🚀 CI/CD Pipeline
+
+This project uses **GitHub Actions** to automate:
+
+- ✅ Build on every push or pull request
+- ✅ Run unit and integration tests
+- ✅ Upload test results as artifacts
+
+CI file: `.github/workflows/dotnet-ci.yml`
+
+![CI](https://github.com/sneigee/SmoothStack-OMS/actions/workflows/dotnet-ci.yml/badge.svg)
 
